@@ -1,6 +1,7 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <h3>Login</h3>
+  <div class="flex flex-col justify-center items-center h-screen">
+    <h3>Login</h3>
+  </div>
 </template>
