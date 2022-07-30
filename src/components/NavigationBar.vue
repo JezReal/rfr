@@ -8,7 +8,7 @@
       <span class="material-symbols-outlined mb-1">receipt_long</span>
       <span>POS</span>
     </router-link>
-    <router-link class="flex flex-col items-center p-4" to="/" v-wave>
+    <router-link class="flex flex-col items-center p-4" to="/inventory" v-wave>
       <span class="material-symbols-outlined mb-1">inventory</span>
       <span>Inventory</span>
     </router-link>
