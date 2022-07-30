@@ -5,7 +5,7 @@ import NavigationBar from "./components/NavigationBar.vue";
 <template>
   <div class="flex flex-col h-screen">
     <router-view> </router-view>
-    <NavigationBar />
+    <NavigationBar v-if="!$route.meta.hideNavbar"/>
   </div>
 </template>
 
