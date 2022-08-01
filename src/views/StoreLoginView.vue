@@ -1,28 +1,31 @@
 <script setup lang="ts">
-import { computed } from "@vue/reactivity";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import CustomInput from "../components/CustomInput.vue";
 
-let email = ref("");
-let password = ref("");
-let emailErrorMessage = computed(() => validateEmail());
-let passwordErrorMessage = computed(() => validatePassword());
-let loginButtonDisabled = computed(
-  () => email.value.length === 0 || password.value.length === 0
+const email = ref({
+  id: "",
+  value: "",
+  valid: false,
+});
+const password = ref({
+  id: "",
+  value: "",
+  valid: false,
+});
+
+const loginButtonDisabled = computed(
+  () => !email.value.valid || !password.value.valid
 );
 
 function saySike() {
-  alert(`Email: ${email.value} Password: ${password.value}`);
+  alert(`Email: ${email.value.value} Password: ${password.value.value}`);
 }
 
-function validateEmail() {
-  if (email.value.length === 0) {
-    return "*This field is required!";
-  }
-}
-
-function validatePassword() {
-  if (password.value.length === 0) {
-    return "*This field is required";
+function foo(form_item: { id: string; value: string; valid: boolean }) {
+  if (form_item.id === "email") {
+    email.value = form_item;
+  } else if (form_item.id === "password") {
+    password.value = form_item;
   }
 }
 </script>
@@ -39,25 +42,27 @@ function validatePassword() {
           <p>Login as store</p>
         </div>
         <div class="flex flex-col justify-evenly h-28 mb-20 w-full gap-2">
-          <p class="text-lg">Email Address</p>
-          <input
-            class="block p-3 border-solid border-2 rounded-md border-gray-400 focus:border-indigo-500 transition-colors outline-none animate"
+          <CustomInput
+            id="email"
+            input-style="block p-3 border-solid border-2 rounded-md border-gray-400 focus:border-indigo-500 outline-none animate"
             type="email"
             placeholder="you@example.com"
-            v-model="email"
-            @input="validateEmail"
+            :validation="{ required: true }"
+            @input-update="foo"
+            label="Email Address"
+            label-style="text-lg"
           />
-          <span class="text-sm text-red-600">{{ emailErrorMessage }}</span>
 
-          <p class="text-lg">Password</p>
-          <input
-            class="block p-3 border-solid border-2 rounded-md border-gray-400 focus:border-indigo-500 outline-none animate"
-            type="password"
-            placeholder="Enter your password"
-            v-model="password"
-            @input="validatePassword"
+          <CustomInput
+            id="password"
+            input-style="block p-3 border-solid border-2 rounded-md border-gray-400 focus:border-indigo-500 outline-none animate"
+            type="email"
+            placeholder="you@example.com"
+            :validation="{ required: true }"
+            @input-update="foo"
+            label="Password"
+            label-style="text-lg"
           />
-          <span class="text-sm text-red-600">{{ passwordErrorMessage }}</span>
         </div>
 
         <div class="w-full">
